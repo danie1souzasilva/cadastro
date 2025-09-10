@@ -21,6 +21,8 @@ public class Partida {
     private String time2;
     private Integer golsTime1;
     private Integer golsTime2;
+    @Column(columnDefinition = "TEXT")
+    private String resumo;
 
     public Partida() {}
 
@@ -31,6 +33,9 @@ public class Partida {
         this.time2 = time2;
         this.golsTime1 = golsTime1;
         this.golsTime2 = golsTime2;
+    }
+    public String linkResumo(){
+        return  String.format("O jogo entre %s e %s terminou em %d x %d", time1, time2, golsTime1, golsTime2);
     }
 
     public Long getId() {
@@ -57,5 +62,16 @@ public class Partida {
     public Integer getGolsTime2() {
         return golsTime2;
     }
+    public String getResumo(){
+        return String.format(
+                "Resumo da partida entre %s e %s: <a href=\"%s\" target=\"_blank\">%s</a>",
+                time1, time2, linkResumo(), linkResumo()
+        );
+    }
+    @Override
+    public String toString() {
+        return String.format("%s x %s | Placar %d x %d \n", time1, time2, golsTime1, golsTime2);
+    }
+
 }
 
