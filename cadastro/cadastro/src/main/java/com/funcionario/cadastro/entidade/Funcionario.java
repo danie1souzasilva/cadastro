@@ -36,5 +36,7 @@ public class Funcionario {
     @DecimalMax(value = "43000.00",inclusive = false, message = "o salario não pode passar de 43000.00")
     private BigDecimal salario;
     private Cargo cargo;
+    @NotBlank(message = "tem que ter senha né")
+    private String senha;
 
 }

@@ -19,7 +19,6 @@ public class FuncionarioController {
     @PostMapping
     public ResponseEntity<FuncDTO> cadastrar(@RequestBody @Valid FuncDTO funcDTO){
        FuncDTO salvo = funcionarioService.cadastrar(funcDTO);
-        System.out.println("chegou no controller");
        return ResponseEntity.ok(salvo);
     }
     @GetMapping
