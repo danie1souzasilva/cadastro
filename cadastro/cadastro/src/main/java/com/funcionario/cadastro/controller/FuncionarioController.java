@@ -26,5 +26,10 @@ public class FuncionarioController {
         List<FuncDTO> lista = funcionarioService.listarFunc();
         return ResponseEntity.ok(lista);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity <Void> deletarPorId(@PathVariable Long id){
+        funcionarioService.deletarPorId(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

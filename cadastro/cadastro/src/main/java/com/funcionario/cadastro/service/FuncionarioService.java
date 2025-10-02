@@ -6,6 +6,7 @@ import com.funcionario.cadastro.entidade.Funcionario;
 import com.funcionario.cadastro.mapper.MapearDTO;
 import com.funcionario.cadastro.produtorKafka.ProdutorKafka;
 import com.funcionario.cadastro.repositorio.FuncionarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioService {
-    @Autowired
-    private FuncionarioRepository funcionarioRepository;
-    @Autowired
-    private MapearDTO mapearDTO;
 
+    private FuncionarioRepository funcionarioRepository;
+    private MapearDTO mapearDTO;
     private final ProdutorKafka produtorKafka;
     private final ObjectMapper objectMapper;
 
-    public FuncionarioService(ProdutorKafka produtorKafka, ObjectMapper objectMapper) {
+    public FuncionarioService(ProdutorKafka produtorKafka, ObjectMapper objectMapper, MapearDTO mapearDTO, FuncionarioRepository funcionarioRepository) {
         this.produtorKafka = produtorKafka;
         this.objectMapper = objectMapper;
+        this.mapearDTO = mapearDTO;
+        this.funcionarioRepository = funcionarioRepository;
     }
 
     public FuncDTO cadastrar(FuncDTO funcDTO){
@@ -44,5 +45,13 @@ public class FuncionarioService {
         return funcionarios.stream()
                 .map(mapearDTO::entidadeParaDTO).collect(Collectors.toList());
     }
+    public void deletarPorId(Long id){
+        if (!funcionarioRepository.existsById(id)){
+            throw new EntityNotFoundException("funcionario não existe");
+        }
+        funcionarioRepository.deleteById(id);
+    }
+
+
 
 }
