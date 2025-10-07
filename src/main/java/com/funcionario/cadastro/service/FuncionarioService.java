@@ -7,7 +7,6 @@ import com.funcionario.cadastro.mapper.MapearDTO;
 import com.funcionario.cadastro.produtorKafka.ProdutorKafka;
 import com.funcionario.cadastro.repositorio.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +49,13 @@ public class FuncionarioService {
             throw new EntityNotFoundException("funcionario não existe");
         }
         funcionarioRepository.deleteById(id);
+    }
+    public FuncDTO atualizarFuncionario(Long id, FuncDTO funcDTO){
+        Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new RuntimeException("funcinario não encontrado"));
+
+        mapearDTO.atualizarFuncionario(funcDTO, funcionario);
+        funcionarioRepository.save(funcionario);
+        return  mapearDTO.entidadeParaDTO(funcionario);
     }
 
 

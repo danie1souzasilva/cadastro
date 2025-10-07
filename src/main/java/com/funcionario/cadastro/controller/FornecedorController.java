@@ -30,4 +30,9 @@ public class FornecedorController {
         fornecedorService.deletarFornecedor(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<FornecedorDTO> atualizar(@PathVariable Long id, @RequestBody FornecedorDTO fornecedorDTO){
+        FornecedorDTO atualizado = fornecedorService.atualizarFornecedor(id, fornecedorDTO);
+        return ResponseEntity.ok(atualizado);
+    }
 }

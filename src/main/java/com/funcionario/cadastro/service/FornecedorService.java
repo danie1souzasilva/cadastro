@@ -47,4 +47,11 @@ public class FornecedorService {
         }
         fornecedorRepositorio.deleteById(id);
     }
+    public FornecedorDTO atualizarFornecedor(Long id, FornecedorDTO fornecedorDTO){
+        Fornecedor fornecedor = fornecedorRepositorio.findById(id).orElseThrow(() -> new RuntimeException("fornecedor não encontrado"));
+
+        mapearDTO.atualizarFornecedor(fornecedorDTO, fornecedor);
+        fornecedorRepositorio.save(fornecedor);
+        return mapearDTO.fornecedorParaDto(fornecedor);
+    }
 }
