@@ -11,7 +11,10 @@ public class ProdutorKafka {
     public ProdutorKafka(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
-    public void enviarMensagemFunci(String mensagemJson){
-        kafkaTemplate.send("funcionarios.criados", mensagemJson);
+    public void enviarMensagemFunci(String mensagemFuncionario){
+        kafkaTemplate.send("funcionarios.criados", mensagemFuncionario);
+    }
+    public void enviarMensagemFornecedor(String mensagemFornecedor){
+        kafkaTemplate.send("fornecedores.criados", mensagemFornecedor);
     }
 }

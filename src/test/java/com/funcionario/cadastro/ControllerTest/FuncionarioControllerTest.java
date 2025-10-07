@@ -28,10 +28,8 @@ public class FuncionarioControllerTest {
     private FuncionarioRepository funcionarioRepository;
 
     @BeforeEach
-    void setup() {
-        funcionarioRepository.deleteAll(); // limpa antes de cada teste
+    void setup() {funcionarioRepository.deleteAll();
     }
-
     @Test
     void deveDeletarFuncionarioExistente() throws Exception {
         // Cria e salva um funcionário
@@ -42,11 +40,10 @@ public class FuncionarioControllerTest {
         funcionario.setTelefone("(61) 99999-9999");
         funcionario.setSenha("senha123");
         funcionario.setSalario(BigDecimal.valueOf(3000));
-        funcionario.setCargo(Cargo.PROGRAMADOR); // ou outro valor do enum
+        funcionario.setCargo(Cargo.PROGRAMADOR);
 
         Funcionario salvo = funcionarioRepository.save(funcionario);
 
-        // Executa o DELETE
         mockMvc.perform(delete("/funcionarios/" + salvo.getId()))
                 .andExpect(status().isNoContent());
     }
