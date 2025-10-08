@@ -17,4 +17,7 @@ public class ProdutorKafka {
     public void enviarMensagemFornecedor(String mensagemFornecedor){
         kafkaTemplate.send("fornecedores.criados", mensagemFornecedor);
     }
+    public void enviarMensagemProduto(String mensagemProduto){
+        kafkaTemplate.send("produtos.criados", mensagemProduto);
+    }
 }

@@ -31,10 +31,12 @@ public class FuncionarioService {
     public FuncDTO cadastrar(FuncDTO funcDTO){
         Funcionario entidade = mapearDTO.dtoParaEntidade(funcDTO);
         Funcionario salvar = funcionarioRepository.save(entidade);
+        FuncDTO dtoSalvo = mapearDTO.entidadeParaDTO(salvar);
         try{
             String mensagemJson = objectMapper.writeValueAsString(funcDTO);
             produtorKafka.enviarMensagemFunci(mensagemJson);
         }catch (Exception e){
+            System.err.println("❌ Erro ao enviar FuncDTO para Kafka:");
             e.printStackTrace();
         }
         return mapearDTO.entidadeParaDTO(salvar);

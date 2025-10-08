@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,4 +25,6 @@ public class Fornecedor {
     private String email;
     @NotBlank
     private  String telefone;
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    private List<Produto> produtos = new ArrayList<>();
 }

@@ -28,10 +28,12 @@ public class FornecedorService {
     public FornecedorDTO cadastrar(FornecedorDTO fornecedorDTO){
         Fornecedor entidade = mapearDTO.dtoParaFornecedor(fornecedorDTO);
         Fornecedor salvar = fornecedorRepositorio.save(entidade);
+        FornecedorDTO dtoSalvo = mapearDTO.fornecedorParaDto(salvar);
         try {
             String mensagemFornecedor = objectMapper.writeValueAsString(fornecedorDTO);
             produtorKafka.enviarMensagemFornecedor(mensagemFornecedor);
         }catch (Exception e){
+            System.err.println("❌ Erro ao enviar FornecedorDTO para Kafka:");
             e.printStackTrace();
         }
         return mapearDTO.fornecedorParaDto(salvar);
