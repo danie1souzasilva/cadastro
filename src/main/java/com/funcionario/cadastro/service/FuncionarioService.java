@@ -56,8 +56,15 @@ public class FuncionarioService {
         Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new RuntimeException("funcinario não encontrado"));
 
         mapearDTO.atualizarFuncionario(funcDTO, funcionario);
-        funcionarioRepository.save(funcionario);
-        return  mapearDTO.entidadeParaDTO(funcionario);
+        Funcionario atualizado = funcionarioRepository.save(funcionario);
+        FuncDTO dtoAtualizado = mapearDTO.entidadeParaDTO(atualizado);
+        try {
+            String mensagemJson = objectMapper.writeValueAsString(dtoAtualizado);
+        }catch (Exception e){
+            System.out.println("Erro ao enviar FuncionarioDTO para atualizar kafka:");
+            e.printStackTrace();
+        }
+        return  mapearDTO.entidadeParaDTO(atualizado);
     }
 
 

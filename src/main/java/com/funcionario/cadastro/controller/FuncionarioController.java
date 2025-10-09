@@ -31,7 +31,7 @@ public class FuncionarioController {
         funcionarioService.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<FuncDTO> atualizar (@PathVariable Long id, @RequestBody FuncDTO funcDTO){
         FuncDTO atualizado = funcionarioService.atualizarFuncionario(id, funcDTO);
         return ResponseEntity.ok(atualizado);
