@@ -35,8 +35,4 @@ public class ProdutoController {
         ProdutoDTO atualizado = produtoService.atualizar(id, dto);
         return ResponseEntity.ok(atualizado);
     }
-
-
-
-
 }
